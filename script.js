@@ -20,10 +20,10 @@ const products = [
   { id: 18, name: "Juego cadena y manilla enchapado en oro 14k con zirconias, 50cm y 20cm", price: 50, image: "18.jpeg" }
 ];
 
-// Carrito guardado como objeto: { productId: {...product, quantity} }
+// Carrito almacenado en un objeto
 const cart = {};
 
-// Añade un producto al carrito (o aumenta la cantidad si ya está)
+// Agrega producto al carrito
 function addToCart(product) {
   if (cart[product.id]) {
     cart[product.id].quantity += 1;
@@ -34,7 +34,7 @@ function addToCart(product) {
   showCart();
 }
 
-// Elimina una unidad del producto del carrito, o elimina el producto si queda 0
+// Remueve una unidad del producto del carrito
 function removeFromCart(productId) {
   if (cart[productId]) {
     cart[productId].quantity -= 1;
@@ -45,26 +45,22 @@ function removeFromCart(productId) {
   }
 }
 
-// Actualiza el contenido visual del carrito y total
+// Actualiza la lista del carrito y total
 function updateCart() {
   const cartList = document.getElementById("cart-items");
   const totalEl = document.getElementById("total");
   const whatsappBtn = document.getElementById("whatsapp-button");
 
-  cartList.innerHTML = ""; // Limpiar listado previo
+  cartList.innerHTML = "";
   let total = 0;
 
-  // Iterar productos en carrito
   Object.values(cart).forEach(item => {
     total += item.price * item.quantity;
 
-    // Crear item del carrito con botón eliminar 1 unidad
     const li = document.createElement("li");
     li.innerHTML = `
-      <strong>${item.name}</strong>
-      <div>
-        Cantidad: ${item.quantity} - Subtotal: $${(item.price * item.quantity).toFixed(2)}
-      </div>
+      <strong>${item.name}</strong><br>
+      Cantidad: ${item.quantity} - Subtotal: $${(item.price * item.quantity).toFixed(2)}<br>
       <button class="remove-btn" onclick="removeFromCart(${item.id})">❌ Quitar 1</button>
     `;
     cartList.appendChild(li);
@@ -72,29 +68,47 @@ function updateCart() {
 
   totalEl.textContent = `Total: $${total.toFixed(2)}`;
 
-  // Crear mensaje para WhatsApp
+  // Mensaje para WhatsApp
   const msg = `Hola JC Glow ✨ Quiero comprar:%0A` +
     Object.values(cart).map(item => `• ${item.name} x${item.quantity} - $${(item.price * item.quantity).toFixed(2)}`).join("%0A") +
     `%0A%0ATotal: $${total.toFixed(2)}`;
 
-  // Actualizar href de WhatsApp con mensaje
   whatsappBtn.href = `https://wa.me/17865336479?text=${msg}`;
 }
 
-// Mostrar el panel carrito
+// Mostrar el panel del carrito
 function showCart() {
   const cartPanel = document.getElementById("cart-panel");
   cartPanel.classList.remove("hidden");
 }
 
-// Cargar productos en la página y agregar evento clic para mostrar imagen
+// Ocultar el panel del carrito
+function hideCart() {
+  const cartPanel = document.getElementById("cart-panel");
+  cartPanel.classList.add("hidden");
+}
+
+// Mostrar imagen en overlay grande
+function showImage(image) {
+  const overlay = document.createElement("div");
+  overlay.className = "image-overlay";
+  overlay.innerHTML = `
+    <div class="image-popup" role="dialog" aria-modal="true">
+      <img src="${image}" alt="Imagen ampliada">
+      <button onclick="this.parentElement.parentElement.remove()" aria-label="Cerrar imagen">Cerrar</button>
+    </div>
+  `;
+  document.body.appendChild(overlay);
+}
+
+// Al cargar la página, carga los productos y agrega eventos
 window.onload = () => {
   const container = document.getElementById("products");
   products.forEach(product => {
     const div = document.createElement("div");
     div.className = "product";
     div.innerHTML = `
-      <img src="${product.image}" alt="${product.name}" onclick="showImage('${product.image}')" />
+      <img src="${product.image}" alt="${product.name}" onclick="showImage('${product.image}')">
       <h3>${product.name}</h3>
       <p>$${product.price.toFixed(2)}</p>
       <button class="btn" onclick='addToCart(${JSON.stringify(product)})'>Agregar al carrito</button>
@@ -102,29 +116,8 @@ window.onload = () => {
     container.appendChild(div);
   });
 
-  // Botones abrir/cerrar carrito en móvil
-  const openCartBtn = document.getElementById("open-cart");
-  const closeCartBtn = document.getElementById("close-cart");
-  const cartPanel = document.getElementById("cart-panel");
-
-  openCartBtn.addEventListener("click", () => {
-    cartPanel.classList.remove("hidden");
-  });
-
-  closeCartBtn.addEventListener("click", () => {
-    cartPanel.classList.add("hidden");
-  });
+  // Botón abrir carrito
+  document.getElementById("open-cart").addEventListener("click", showCart);
+  // Botón cerrar carrito
+  document.getElementById("close-cart").addEventListener("click", hideCart);
 };
-
-// Mostrar imagen en tamaño grande con overlay
-function showImage(image) {
-  const overlay = document.createElement("div");
-  overlay.className = "image-overlay";
-  overlay.innerHTML = `
-    <div class="image-popup">
-      <img src="${image}" alt="Imagen ampliada" />
-      <button onclick="this.parentElement.parentElement.remove()">Cerrar</button>
-    </div>
-  `;
-  document.body.appendChild(overlay);
-}
