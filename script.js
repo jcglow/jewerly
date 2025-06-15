@@ -20,38 +20,87 @@ const products = [
   { id: 18, name: "Juego cadena y manilla enchapado en oro 14k con zirconias, 50cm y 20cm", price: 50, image: "18.jpeg" }
 ];
 
-// Carrito almacenado en un objeto
-const cart = {};
+// Carrito guardado o inicial vacío
+let cart = JSON.parse(localStorage.getItem("jcglowCart")) || {};
 
-// Agrega producto al carrito
+// Elementos DOM
+const productsContainer = document.getElementById("products");
+const cartPanel = document.getElementById("cart-panel");
+const cartItemsList = document.getElementById("cart-items");
+const totalEl = document.getElementById("total");
+const whatsappBtn = document.getElementById("whatsapp-button");
+const cartToggleBtn = document.getElementById("cart-toggle");
+const cartCountEl = document.getElementById("cart-count");
+const cartCloseBtn = document.getElementById("cart-close");
+const imageOverlay = document.getElementById("image-overlay");
+const popupImg = document.getElementById("popup-img");
+const imageCloseBtn = document.getElementById("image-close");
+
+// Render productos en la página
+function renderProducts() {
+  productsContainer.innerHTML = "";
+  products.forEach(product => {
+    const div = document.createElement("div");
+    div.className = "product";
+    div.innerHTML = `
+      <img src="${product.image}" alt="${product.name}" tabindex="0" role="button" aria-label="Ver imagen de ${product.name}" />
+      <h3>${product.name}</h3>
+      <p>$${product.price}</p>
+      <button class="btn" aria-label="Agregar ${product.name} al carrito">Agregar al carrito</button>
+    `;
+    // Click para zoom imagen
+    div.querySelector("img").addEventListener("click", () => showImage(product.image));
+    div.querySelector("img").addEventListener("keypress", (e) => {
+      if(e.key === "Enter") showImage(product.image);
+    });
+    // Click para agregar al carrito
+    div.querySelector("button").addEventListener("click", () => addToCart(product));
+    productsContainer.appendChild(div);
+  });
+}
+
+// Guardar carrito en localStorage
+function saveCart() {
+  localStorage.setItem("jcglowCart", JSON.stringify(cart));
+}
+
+// Actualizar contador de carrito en botón flotante
+function updateCartCount() {
+  const totalQuantity = Object.values(cart).reduce((acc, item) => acc + item.quantity, 0);
+  if (totalQuantity > 0) {
+    cartCountEl.textContent = totalQuantity;
+    cartCountEl.classList.remove("hidden");
+  } else {
+    cartCountEl.classList.add("hidden");
+  }
+}
+
+// Añadir producto al carrito
 function addToCart(product) {
   if (cart[product.id]) {
     cart[product.id].quantity += 1;
   } else {
     cart[product.id] = { ...product, quantity: 1 };
   }
-  updateCart();
+  saveCart();
+  updateCartUI();
   showCart();
 }
 
-// Remueve una unidad del producto del carrito
+// Quitar 1 unidad del producto o eliminarlo si queda 0
 function removeFromCart(productId) {
-  if (cart[productId]) {
-    cart[productId].quantity -= 1;
-    if (cart[productId].quantity <= 0) {
-      delete cart[productId];
-    }
-    updateCart();
+  if (!cart[productId]) return;
+  cart[productId].quantity -= 1;
+  if (cart[productId].quantity <= 0) {
+    delete cart[productId];
   }
+  saveCart();
+  updateCartUI();
 }
 
-// Actualiza la lista del carrito y total
-function updateCart() {
-  const cartList = document.getElementById("cart-items");
-  const totalEl = document.getElementById("total");
-  const whatsappBtn = document.getElementById("whatsapp-button");
-
-  cartList.innerHTML = "";
+// Actualizar la UI del carrito (lista, total, WhatsApp)
+function updateCartUI() {
+  cartItemsList.innerHTML = "";
   let total = 0;
 
   Object.values(cart).forEach(item => {
@@ -60,64 +109,66 @@ function updateCart() {
     const li = document.createElement("li");
     li.innerHTML = `
       <strong>${item.name}</strong><br>
-      Cantidad: ${item.quantity} - Subtotal: $${(item.price * item.quantity).toFixed(2)}<br>
-      <button class="remove-btn" onclick="removeFromCart(${item.id})">❌ Quitar 1</button>
+      Cantidad: ${item.quantity} - Subtotal: $${item.price * item.quantity}
+      <button aria-label="Quitar una unidad de ${item.name}" class="remove-btn">❌</button>
     `;
-    cartList.appendChild(li);
+    li.querySelector("button").addEventListener("click", () => removeFromCart(item.id));
+    cartItemsList.appendChild(li);
   });
 
-  totalEl.textContent = `Total: $${total.toFixed(2)}`;
+  totalEl.textContent = `Total: $${total}`;
 
-  // Mensaje para WhatsApp
+  // Mensaje WhatsApp con resumen
   const msg = `Hola JC Glow ✨ Quiero comprar:%0A` +
-    Object.values(cart).map(item => `• ${item.name} x${item.quantity} - $${(item.price * item.quantity).toFixed(2)}`).join("%0A") +
-    `%0A%0ATotal: $${total.toFixed(2)}`;
+    Object.values(cart).map(item => `• ${item.name} x${item.quantity} - $${item.price * item.quantity}`).join("%0A") +
+    `%0A%0ATotal: $${total}`;
 
   whatsappBtn.href = `https://wa.me/17865336479?text=${msg}`;
+
+  updateCartCount();
 }
 
-// Mostrar el panel del carrito
+// Mostrar panel carrito
 function showCart() {
-  const cartPanel = document.getElementById("cart-panel");
   cartPanel.classList.remove("hidden");
 }
 
-// Ocultar el panel del carrito
+// Ocultar panel carrito
 function hideCart() {
-  const cartPanel = document.getElementById("cart-panel");
   cartPanel.classList.add("hidden");
 }
 
-// Mostrar imagen en overlay grande
+// Mostrar imagen grande en overlay
 function showImage(image) {
-  const overlay = document.createElement("div");
-  overlay.className = "image-overlay";
-  overlay.innerHTML = `
-    <div class="image-popup" role="dialog" aria-modal="true">
-      <img src="${image}" alt="Imagen ampliada">
-      <button onclick="this.parentElement.parentElement.remove()" aria-label="Cerrar imagen">Cerrar</button>
-    </div>
-  `;
-  document.body.appendChild(overlay);
+  popupImg.src = image;
+  imageOverlay.classList.remove("hidden");
 }
 
-// Al cargar la página, carga los productos y agrega eventos
-window.onload = () => {
-  const container = document.getElementById("products");
-  products.forEach(product => {
-    const div = document.createElement("div");
-    div.className = "product";
-    div.innerHTML = `
-      <img src="${product.image}" alt="${product.name}" onclick="showImage('${product.image}')">
-      <h3>${product.name}</h3>
-      <p>$${product.price.toFixed(2)}</p>
-      <button class="btn" onclick='addToCart(${JSON.stringify(product)})'>Agregar al carrito</button>
-    `;
-    container.appendChild(div);
-  });
+// Ocultar overlay imagen
+function hideImage() {
+  imageOverlay.classList.add("hidden");
+  popupImg.src = "";
+}
 
-  // Botón abrir carrito
-  document.getElementById("open-cart").addEventListener("click", showCart);
-  // Botón cerrar carrito
-  document.getElementById("close-cart").addEventListener("click", hideCart);
-};
+// Eventos
+cartToggleBtn.addEventListener("click", () => {
+  if (cartPanel.classList.contains("hidden")) {
+    showCart();
+  } else {
+    hideCart();
+  }
+});
+
+cartCloseBtn.addEventListener("click", hideCart);
+
+imageCloseBtn.addEventListener("click", hideImage);
+
+imageOverlay.addEventListener("click", (e) => {
+  if (e.target === imageOverlay) hideImage();
+});
+
+// Inicialización
+window.addEventListener("load", () => {
+  renderProducts();
+  updateCartUI();
+});
