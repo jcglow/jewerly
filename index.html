@@ -2,51 +2,27 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>JC Glow Jewelry</title>
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <header>
-    <h1>JC Glow Jewelry</h1>
-    <p>Tu brillo comienza aquí ✨</p>
-  </header>
 
-  <main>
-    <section id="products" class="products">
-      <!-- Los productos se insertan aquí desde JavaScript -->
-    </section>
-
-    <section class="cart">
-      <h2>🛒 Carrito de Compras</h2>
-      <ul id="cart-items"></ul>
-      <p id="total">Total: $0</p>
-      <a id="whatsapp-button" href="#" target="_blank" class="btn" style="margin-top: 15px;">
-  Comprar por WhatsApp
-      </a>
-    </section>
-  </main>
-
-  <footer>
-    <p>&copy; 2025 JC Glow Jewelry</p>
-  </footer>
-
-  <script src="script.js"></script>
-
-  <!-- Ventana Modal para vista ampliada -->
-<div id="modal" class="modal">
-  <span id="close-modal" class="close">&times;</span>
-  <img class="modal-content" id="modal-img" alt="Imagen del producto">
-  <div id="modal-caption"></div>
-</div>
+  <div id="products" class="products-container">
+    <!-- Aquí se cargarán los productos dinámicamente -->
+  </div>
 
   <!-- Panel lateral del carrito -->
-<section id="cart-panel" class="cart-panel hidden">
-  <h2>🛒 Carrito</h2>
-  <ul id="cart-items"></ul>
-  <p id="total">Total: $0</p>
-  <a id="whatsapp-button" href="#" target="_blank" class="btn">Comprar por WhatsApp</a>
-</section>
+  <section id="cart-panel" class="cart-panel hidden">
+    <button id="close-cart" class="close-btn">✖ Cerrar</button>
+    <h2>🛒 Carrito</h2>
+    <ul id="cart-items"></ul>
+    <p id="total">Total: $0</p>
+    <a id="whatsapp-button" href="#" target="_blank" class="btn whatsapp-btn">Comprar por WhatsApp</a>
+  </section>
 
+  <script src="script.js"></script>
 </body>
+</html>
+
 </html>
