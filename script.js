@@ -25,7 +25,15 @@ const cart = [];
 function addToCart(product) {
   cart.push(product);
   updateCart();
-  showCart(); // Mostrar carrito al agregar producto
+  showCart();
+}
+
+function removeFromCart(index) {
+  cart.splice(index, 1);
+  updateCart();
+  if (cart.length === 0) {
+    hideCart();
+  }
 }
 
 function updateCart() {
@@ -35,12 +43,17 @@ function updateCart() {
   cartList.innerHTML = "";
   let total = 0;
 
-  cart.forEach(item => {
+  cart.forEach((item, index) => {
     total += item.price;
     const li = document.createElement("li");
 
-    // Añadir mini imagen + texto
-    li.innerHTML = `<img src="${item.image}" alt="${item.name}"> ${item.name} - $${item.price}`;
+    li.innerHTML = `
+      <div class="cart-item-content">
+        <img src="${item.image}" alt="${item.name}">
+        <span>${item.name} - $${item.price}</span>
+      </div>
+      <button class="remove-btn" onclick="removeFromCart(${index})">X</button>
+    `;
 
     cartList.appendChild(li);
   });
@@ -62,7 +75,6 @@ function hideCart() {
   document.querySelector(".cart").classList.remove("show");
 }
 
-// Opcional: agregar un botón para cerrar carrito
 window.onload = () => {
   const container = document.getElementById("products");
 
@@ -78,7 +90,7 @@ window.onload = () => {
     container.appendChild(div);
   });
 
-  // Crear botón para cerrar carrito
+  // Botón cerrar carrito
   const closeBtn = document.createElement("button");
   closeBtn.textContent = "Cerrar carrito";
   closeBtn.className = "btn";
