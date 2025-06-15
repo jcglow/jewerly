@@ -134,4 +134,20 @@ window.onload = () => {
   closeCartBtn.addEventListener("click", () => {
     cartPanel.classList.add("hidden");
   });
+window.onload = () => {
+  // (tu código actual para renderizar productos y cerrar carrito)
+
+  // Botón abrir carrito en móvil
+  const openCartBtn = document.getElementById("open-cart");
+  const closeCartBtn = document.getElementById("close-cart");
+  const cartPanel = document.getElementById("cart-panel");
+
+  openCartBtn.addEventListener("click", () => {
+    cartPanel.classList.remove("hidden");
+  });
+
+  closeCartBtn.addEventListener("click", () => {
+    cartPanel.classList.add("hidden");
+  });
 };
+
