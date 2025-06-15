@@ -77,18 +77,50 @@ function hideCart() {
 
 window.onload = () => {
   const container = document.getElementById("products");
+  const modal = document.getElementById("modal");
+  const modalImg = document.getElementById("modal-img");
+  const modalCaption = document.getElementById("modal-caption");
+  const closeModal = document.getElementById("close-modal");
 
   products.forEach(product => {
     const div = document.createElement("div");
     div.className = "product";
     div.innerHTML = `
-      <img src="${product.image}" alt="${product.name}">
-      <h3>${product.name}</h3>
+      <img src="${product.image}" alt="${product.name}" class="product-img" style="cursor:pointer;">
+      <h3 class="product-name" style="cursor:pointer;">${product.name}</h3>
       <p>$${product.price}</p>
       <button class="btn" onclick='addToCart(${JSON.stringify(product)})'>Agregar al carrito</button>
     `;
     container.appendChild(div);
+
+    // Seleccionar img y nombre para abrir modal
+    const imgEl = div.querySelector(".product-img");
+    const nameEl = div.querySelector(".product-name");
+
+    // Función para abrir modal con imagen y texto
+    const openModal = () => {
+      modal.style.display = "block";
+      modalImg.src = product.image;
+      modalCaption.textContent = product.name;
+    };
+
+    imgEl.addEventListener("click", openModal);
+    nameEl.addEventListener("click", openModal);
   });
+
+  // Cerrar modal al hacer clic en la X
+  closeModal.onclick = () => {
+    modal.style.display = "none";
+  };
+
+  // Cerrar modal si hacen clic fuera de la imagen
+  modal.onclick = (event) => {
+    if (event.target === modal) {
+      modal.style.display = "none";
+    }
+  };
+};
+
 
   // Botón cerrar carrito
   const closeBtn = document.createElement("button");
