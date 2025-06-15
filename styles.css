@@ -1,165 +1,245 @@
-/* Estilos generales */
-body {
-  font-family: Arial, sans-serif;
+/* Reset básico */
+* {
+  box-sizing: border-box;
   margin: 0;
   padding: 0;
-  box-sizing: border-box;
-  background: #fff8f0;
 }
 
-.products-container {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: flex-start;
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: #f9f7f1;
+  color: #333;
   padding: 1rem;
-  margin-right: 340px; /* espacio para carrito lateral en desktop */
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 
-.product {
-  width: 200px;
-  margin: 1rem;
-  padding: 0.8rem;
-  background: white;
-  border-radius: 12px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+/* HEADER - Banner */
+.site-header {
   text-align: center;
-  cursor: pointer;
+  padding: 1.5rem 1rem;
+  background: #d4af37; /* dorado elegante */
+  color: #fff;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+  box-shadow: 0 2px 6px rgba(212, 175, 55, 0.7);
+}
+
+.site-header h1 {
+  font-size: 2.5rem;
+  margin-bottom: 0.3rem;
+}
+
+.site-header p {
+  font-size: 1.1rem;
+  font-weight: 500;
+  letter-spacing: 0.03em;
+}
+
+/* CONTENEDOR PRINCIPAL DE PRODUCTOS */
+.products-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 1rem;
+  flex-grow: 1;
+}
+
+/* PRODUCTO */
+.product {
+  background: white;
+  border-radius: 10px;
+  padding: 0.8rem;
+  box-shadow: 0 2px 8px rgb(212 175 55 / 0.3);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   transition: box-shadow 0.3s ease;
+  cursor: pointer;
 }
 
 .product:hover {
-  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  box-shadow: 0 5px 15px rgb(212 175 55 / 0.6);
 }
 
 .product img {
-  width: 100%;
+  max-width: 100%;
   border-radius: 10px;
-  filter: drop-shadow(0 0 4px rgba(184, 134, 11, 0.4));
-  object-fit: cover;
-  max-height: 150px;
+  filter: drop-shadow(0 0 8px rgba(212,175,55,0.5));
+  margin-bottom: 0.6rem;
+  object-fit: contain;
+  height: 180px;
 }
 
 .product h3 {
-  margin: 0.5rem 0;
-  font-size: 1.1rem;
+  font-size: 1rem;
+  margin-bottom: 0.4rem;
+  text-align: center;
 }
 
 .product p {
   font-weight: bold;
   color: #b8860b;
-  margin-bottom: 0.8rem;
+  margin-bottom: 0.6rem;
 }
 
-.btn {
-  background-color: #b8860b;
-  color: white;
+.product .btn {
+  background: #b8860b; /* color dorado */
   border: none;
-  padding: 0.6rem 1.1rem;
-  border-radius: 25px;
+  padding: 0.5rem 0.9rem;
+  color: white;
   font-weight: 600;
+  border-radius: 6px;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  transition: background-color 0.25s ease;
 }
 
-.btn:hover {
-  background-color: #a17407;
+.product .btn:hover {
+  background: #d4af37; /* dorado claro */
 }
 
-/* Panel carrito lateral */
+/* FOOTER */
+.site-footer {
+  text-align: center;
+  margin-top: 1.5rem;
+  padding: 1rem;
+  font-size: 0.9rem;
+  color: #555;
+}
+
+/* PANEL LATERAL DEL CARRITO */
 .cart-panel {
   position: fixed;
-  right: 0;
   top: 0;
+  right: 0;
   width: 320px;
   height: 100vh;
   background: white;
-  box-shadow: -2px 0 10px rgba(0,0,0,0.15);
-  padding: 1rem 1.5rem;
+  box-shadow: -2px 0 12px rgba(0,0,0,0.2);
+  padding: 1rem;
   overflow-y: auto;
-  z-index: 9999;
+  z-index: 1000;
   display: flex;
   flex-direction: column;
+  transition: transform 0.3s ease;
 }
 
 .cart-panel.hidden {
-  display: none;
+  transform: translateX(100%);
 }
 
-.close-btn {
-  background: transparent;
-  border: none;
-  font-size: 1.8rem;
-  align-self: flex-end;
-  cursor: pointer;
+.cart-panel h2 {
   margin-bottom: 1rem;
   color: #b8860b;
 }
 
-#cart-items {
+.cart-panel ul {
   list-style: none;
-  padding: 0;
   flex-grow: 1;
   overflow-y: auto;
   margin-bottom: 1rem;
 }
 
-#cart-items li {
-  border-bottom: 1px solid #ddd;
-  padding: 0.5rem 0;
-  font-size: 0.95rem;
-  display: flex;
-  flex-direction: column;
+.cart-panel ul li {
+  margin-bottom: 1rem;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 0.5rem;
+  font-size: 0.9rem;
 }
 
-#cart-items li strong {
-  font-weight: 700;
-  margin-bottom: 0.3rem;
+.cart-panel ul li strong {
+  color: #5a3e00;
 }
 
-.remove-btn {
-  background: #e27a3f;
+.cart-panel ul li button.remove-btn {
+  background: #d9534f;
   border: none;
   color: white;
-  border-radius: 20px;
-  padding: 3px 10px;
-  font-size: 0.8rem;
+  padding: 0.25rem 0.5rem;
+  border-radius: 5px;
   cursor: pointer;
-  align-self: flex-start;
-  margin-top: 5px;
-  transition: background-color 0.3s ease;
+  font-size: 0.85rem;
+  margin-top: 0.3rem;
 }
 
-.remove-btn:hover {
-  background-color: #bf5a1e;
+.cart-panel ul li button.remove-btn:hover {
+  background: #c9302c;
 }
 
-.whatsapp-btn {
-  width: 100%;
-  font-size: 1.1rem;
-  padding: 1rem;
-  border-radius: 30px;
+#total {
   font-weight: 700;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
+  font-size: 1.2rem;
+  margin-bottom: 1rem;
+  color: #b8860b;
 }
 
-/* Overlay imagen grande */
+/* BOTÓN COMPRAR POR WHATSAPP */
+.btn.whatsapp-btn {
+  display: block;
+  text-align: center;
+  background: linear-gradient(135deg, #d4af37, #b8860b);
+  color: white;
+  text-decoration: none;
+  font-weight: 700;
+  padding: 0.75rem 1rem;
+  border-radius: 10px;
+  box-shadow: 0 3px 6px rgba(180,140,40,0.7);
+  transition: background 0.3s ease;
+}
+
+.btn.whatsapp-btn:hover {
+  background: linear-gradient(135deg, #b8860b, #f0c857);
+}
+
+/* BOTÓN PARA ABRIR EL CARRITO (FLOTANTE) */
+.open-cart-btn {
+  position: fixed;
+  bottom: 1.5rem;
+  right: 1.5rem;
+  background: linear-gradient(135deg, #d4af37, #b8860b);
+  color: white;
+  border: none;
+  padding: 1rem 1.2rem;
+  border-radius: 50%;
+  font-size: 1.5rem;
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(180,140,40,0.8);
+  z-index: 1100;
+  transition: background 0.3s ease;
+}
+
+.open-cart-btn:hover {
+  background: linear-gradient(135deg, #b8860b, #f0c857);
+}
+
+/* BOTÓN DE CERRAR EL CARRITO */
+.close-btn {
+  background: none;
+  border: none;
+  font-size: 1.4rem;
+  color: #b8860b;
+  cursor: pointer;
+  align-self: flex-end;
+  margin-bottom: 1rem;
+}
+
+/* OVERLAY PARA IMAGEN AMPLIADA */
 .image-overlay {
   position: fixed;
   top: 0; left: 0;
-  width: 100vw; height: 100vh;
-  background: rgba(0, 0, 0, 0.6);
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0,0,0,0.65);
   display: flex;
-  align-items: center;
   justify-content: center;
-  z-index: 10000;
+  align-items: center;
+  z-index: 1200;
 }
 
 .image-popup {
   background: white;
   padding: 1rem;
-  border-radius: 12px;
+  border-radius: 10px;
   max-width: 90vw;
   max-height: 90vh;
   overflow: auto;
@@ -174,82 +254,44 @@ body {
 }
 
 .image-popup button {
-  margin-top: 10px;
+  margin-top: 1rem;
   background: #b8860b;
-  border: none;
   color: white;
+  border: none;
   padding: 0.5rem 1rem;
-  border-radius: 25px;
+  border-radius: 8px;
   cursor: pointer;
-  font-weight: 600;
+  font-weight: 700;
+  transition: background 0.3s ease;
 }
 
 .image-popup button:hover {
-  background-color: #a17407;
+  background: #d4af37;
 }
 
-/* Botón flotante abrir carrito móvil */
-.open-cart-btn {
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-  background-color: #b8860b;
-  color: white;
-  border: none;
-  border-radius: 50%;
-  width: 56px;
-  height: 56px;
-  font-size: 1.8rem;
-  cursor: pointer;
-  box-shadow: 0 4px 8px rgba(184, 134, 11, 0.6);
-  z-index: 10001;
-  display: none; /* oculto por defecto */
-  align-items: center;
-  justify-content: center;
-}
-
-/* Mostrar botón abrir carrito solo en móvil */
+/* RESPONSIVE - móviles y tablets */
 @media (max-width: 768px) {
+  body {
+    padding: 0.5rem;
+  }
+  
   .products-container {
-    margin-right: 0;
-    justify-content: center;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 0.6rem;
   }
 
-  .product {
-    width: 45vw;
-    margin: 0.5rem;
+  .product img {
+    height: 130px;
   }
 
+  /* El carrito lateral ocupa toda la pantalla */
   .cart-panel {
-    position: fixed;
-    bottom: 0;
-    right: 0;
-    left: 0;
-    height: 50vh;
     width: 100vw;
-    box-shadow: 0 -4px 10px rgba(0, 0, 0, 0.2);
-    border-top-left-radius: 12px;
-    border-top-right-radius: 12px;
-    padding: 1rem 1.5rem;
-    overflow-y: auto;
+    height: 100vh;
+    box-shadow: none;
   }
 
-  .close-btn {
-    font-size: 2rem;
-    margin-bottom: 1rem;
-  }
-
-  .btn {
-    padding: 0.75rem 1.2rem;
-    font-size: 1.1rem;
-  }
-
-  .whatsapp-btn {
-    font-size: 1.2rem;
-    padding: 1rem;
-  }
-
-  .open-cart-btn {
-    display: flex;
+  .cart-panel.hidden {
+    transform: translateX(100%);
   }
 }
