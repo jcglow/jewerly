@@ -15,6 +15,20 @@ body {
   flex-direction: column;
 }
 
+/* Fondo transparente fijo con logo */
+body::before {
+  content: "";
+  position: fixed;
+  top: 0; 
+  left: 0;
+  width: 100vw; 
+  height: 100vh;
+  background: url('logo.png') no-repeat center center / cover;
+  opacity: 0.1;         
+  z-index: -1;          
+  pointer-events: none; 
+}
+
 /* HEADER - Banner */
 .site-header {
   text-align: center;
