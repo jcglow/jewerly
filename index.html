@@ -3,38 +3,62 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>JC Glow Jewelry</title>
+  <title>JC Glow Jewelry - Elegancia en Joyas</title>
+  
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat&family=Playfair+Display&display=swap" rel="stylesheet" />
+  
+  <!-- CSS externo -->
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <!-- Banner / Header -->
-  <header class="site-header">
-    <h1>JC Glow Jewelry</h1>
-    <p>Luce con elegancia y confianza gracias a nuestras joyas, creadas para celebrar cada momento especial.</p>
+
+  <!-- Banner con logo y nombre -->
+  <header class="banner">
+    <img src="logo.png" alt="Logo JC Glow" class="logo" />
+    <div class="banner-text">
+      <h1>JC Glow Jewelry</h1>
+      <p>Joyas elegantes y sofisticadas que realzan tu brillo natural</p>
+    </div>
   </header>
 
-  <!-- Contenedor de productos -->
-  <main id="products" class="products-container">
-    <!-- Los productos se cargan aquí dinámicamente con JS -->
-  </main>
-
-  <!-- Footer -->
-  <footer class="site-footer">
-    <p>© 2025 JC Glow Jewelry. Todos los derechos reservados.</p>
-  </footer>
-
-  <!-- Panel lateral del carrito -->
-  <section id="cart-panel" class="cart-panel hidden" aria-label="Carrito de compras">
-    <button id="close-cart" class="close-btn" aria-label="Cerrar carrito">✖</button>
-    <h2>🛒 Carrito</h2>
-    <ul id="cart-items"></ul>
-    <p id="total">Total: $0</p>
-    <a id="whatsapp-button" href="#" target="_blank" class="btn whatsapp-btn">Comprar por WhatsApp</a>
+  <!-- Texto promocional -->
+  <section class="promo-text">
+    <p>Descubre la colección exclusiva de joyas que combina elegancia y estilo único para cada ocasión.</p>
   </section>
 
-  <!-- Botón flotante para abrir carrito en móvil -->
-  <button id="open-cart" class="open-cart-btn" aria-label="Abrir carrito">🛒</button>
+  <!-- Contenedor productos -->
+  <main>
+    <div id="products" class="products-container"></div>
+  </main>
 
-  <script src="script.js"></script>
+  <!-- Botón flotante carrito con indicador -->
+  <button id="cart-toggle" aria-label="Abrir carrito">
+    <span class="material-icons">shopping_cart</span>
+    <span id="cart-count" class="cart-count hidden">0</span>
+  </button>
+
+  <!-- Panel lateral carrito -->
+  <section id="cart-panel" class="cart-panel hidden" aria-label="Carrito de compras">
+    <h2>Tu Carrito</h2>
+    <ul id="cart-items"></ul>
+    <p id="total">Total: $0</p>
+    <a id="whatsapp-button" href="#" target="_blank" class="btn">Comprar por WhatsApp</a>
+    <button id="cart-close" aria-label="Cerrar carrito">✖</button>
+  </section>
+
+  <!-- Overlay para imagen grande -->
+  <div id="image-overlay" class="image-overlay hidden" role="dialog" aria-modal="true" aria-label="Vista ampliada de imagen">
+    <div class="image-popup">
+      <img id="popup-img" src="" alt="Imagen ampliada" />
+      <button id="image-close" aria-label="Cerrar imagen">Cerrar</button>
+    </div>
+  </div>
+
+  <!-- Ícono de Material Icons para carrito -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+  <!-- JS -->
+  <script src="script.js" defer></script>
 </body>
 </html>
