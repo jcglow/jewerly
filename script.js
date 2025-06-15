@@ -92,3 +92,8 @@ window.onload = () => {
     container.appendChild(div);
   });
 };
+
+function removeFromCart(index) {
+  cart.splice(index, 1);
+  updateCart();
+}
