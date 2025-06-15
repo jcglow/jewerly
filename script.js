@@ -30,13 +30,18 @@ function updateCart() {
   const cartList = document.getElementById("cart-items");
   const totalEl = document.getElementById("total");
   const whatsappBtn = document.getElementById("whatsapp-button");
+
   cartList.innerHTML = "";
   let total = 0;
 
-  cart.forEach(item => {
+  cart.forEach((item, index) => {
     total += item.price;
+
     const li = document.createElement("li");
-    li.textContent = `${item.name} - $${item.price}`;
+    li.innerHTML = `
+      ${item.name} - $${item.price}
+      <button class="remove-btn" onclick="removeFromCart(${index})">❌</button>
+    `;
     cartList.appendChild(li);
   });
 
@@ -48,6 +53,7 @@ function updateCart() {
 
   whatsappBtn.href = `https://wa.me/17865336479?text=${msg}`;
 }
+
 
 // Mostrar imagen grande en modal
 function showImageModal(src) {
