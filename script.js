@@ -1,4 +1,3 @@
-
 const products = [
   { id: 1, name: "Aretes con estilo de diseño enchapados en oro 14k", price: 15, image: "1.jpeg" },
   { id: 2, name: "Aretes enchapados en oro 14k con zirconias y doble cierres", price: 15, image: "2.jpeg" },
@@ -25,15 +24,6 @@ const cart = [];
 function addToCart(product) {
   cart.push(product);
   updateCart();
-  showCart();
-}
-
-function removeFromCart(index) {
-  cart.splice(index, 1);
-  updateCart();
-  if (cart.length === 0) {
-    hideCart();
-  }
 }
 
 function updateCart() {
@@ -43,90 +33,56 @@ function updateCart() {
   cartList.innerHTML = "";
   let total = 0;
 
-  cart.forEach((item, index) => {
+  cart.forEach(item => {
     total += item.price;
     const li = document.createElement("li");
-
-    li.innerHTML = `
-      <div class="cart-item-content">
-        <img src="${item.image}" alt="${item.name}">
-        <span>${item.name} - $${item.price}</span>
-      </div>
-      <button class="remove-btn" onclick="removeFromCart(${index})">X</button>
-    `;
-
+    li.textContent = `${item.name} - $${item.price}`;
     cartList.appendChild(li);
   });
 
   totalEl.textContent = `Total: $${total}`;
 
-  const msg = "Hola JC Glow Jewelry ✨ quiero comprar:%0A" +
-    cart.map(item => `- ${item.name} - $${item.price}`).join("%0A") +
+  const msg = `Hola JC Glow ✨ Quiero comprar:%0A` +
+    cart.map(item => `• ${item.name} - $${item.price}`).join("%0A") +
     `%0A%0ATotal: $${total}`;
 
   whatsappBtn.href = `https://wa.me/17865336479?text=${msg}`;
 }
 
-function showCart() {
-  document.querySelector(".cart").classList.add("show");
-}
+// Mostrar imagen grande en modal
+function showImageModal(src) {
+  const modal = document.createElement("div");
+  modal.className = "image-modal";
+  modal.innerHTML = `
+    <div class="image-modal-content">
+      <span class="close-btn">&times;</span>
+      <img src="${src}" alt="Vista ampliada" />
+    </div>
+  `;
+  document.body.appendChild(modal);
 
-function hideCart() {
-  document.querySelector(".cart").classList.remove("show");
+  modal.querySelector(".close-btn").onclick = () => {
+    modal.remove();
+  };
+
+  modal.onclick = (e) => {
+    if (e.target === modal) {
+      modal.remove();
+    }
+  };
 }
 
 window.onload = () => {
   const container = document.getElementById("products");
-  const modal = document.getElementById("modal");
-  const modalImg = document.getElementById("modal-img");
-  const modalCaption = document.getElementById("modal-caption");
-  const closeModal = document.getElementById("close-modal");
-
   products.forEach(product => {
     const div = document.createElement("div");
     div.className = "product";
     div.innerHTML = `
-      <img src="${product.image}" alt="${product.name}" class="product-img" style="cursor:pointer;">
-      <h3 class="product-name" style="cursor:pointer;">${product.name}</h3>
+      <img src="${product.image}" alt="${product.name}" onclick="showImageModal('${product.image}')">
+      <h3>${product.name}</h3>
       <p>$${product.price}</p>
       <button class="btn" onclick='addToCart(${JSON.stringify(product)})'>Agregar al carrito</button>
     `;
     container.appendChild(div);
-
-    // Seleccionar img y nombre para abrir modal
-    const imgEl = div.querySelector(".product-img");
-    const nameEl = div.querySelector(".product-name");
-
-    // Función para abrir modal con imagen y texto
-    const openModal = () => {
-      modal.style.display = "block";
-      modalImg.src = product.image;
-      modalCaption.textContent = product.name;
-    };
-
-    imgEl.addEventListener("click", openModal);
-    nameEl.addEventListener("click", openModal);
   });
-
-  // Cerrar modal al hacer clic en la X
-  closeModal.onclick = () => {
-    modal.style.display = "none";
-  };
-
-  // Cerrar modal si hacen clic fuera de la imagen
-  modal.onclick = (event) => {
-    if (event.target === modal) {
-      modal.style.display = "none";
-    }
-  };
-};
-
-
-  // Botón cerrar carrito
-  const closeBtn = document.createElement("button");
-  closeBtn.textContent = "Cerrar carrito";
-  closeBtn.className = "btn";
-  closeBtn.style.marginTop = "20px";
-  closeBtn.onclick = hideCart;
-  document.querySelector(".cart").appendChild(closeBtn);
 };
