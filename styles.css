@@ -193,17 +193,3 @@ footer {
   color: #444;
   cursor: pointer;
 }
-
-.remove-btn {
-  background: transparent;
-  color: #d9534f;
-  border: none;
-  font-size: 1.1em;
-  cursor: pointer;
-  margin-left: 8px;
-  transition: color 0.2s ease;
-}
-
-.remove-btn:hover {
-  color: #a94442;
-}
