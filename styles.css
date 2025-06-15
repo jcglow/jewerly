@@ -221,5 +221,31 @@
     font-size: 1.2rem;
     padding: 1rem;
   }
+/* Botón flotante para abrir carrito */
+.open-cart-btn {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background-color: #b8860b;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 56px;
+  height: 56px;
+  font-size: 1.8rem;
+  cursor: pointer;
+  box-shadow: 0 4px 8px rgba(184, 134, 11, 0.6);
+  z-index: 10001;
+  display: none; /* por defecto oculto en escritorio */
+  align-items: center;
+  justify-content: center;
 }
+
+/* Mostrar botón abrir carrito solo en móvil */
+@media (max-width: 768px) {
+  .open-cart-btn {
+    display: flex;
+  }
+}
+
 
