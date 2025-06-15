@@ -1,243 +1,195 @@
-/* Fuente profesional: Usamos una fuente elegante, por ejemplo 'Playfair Display' de Google Fonts */
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display&family=Roboto&display=swap');
-
-/* Body con fuente más profesional */
-body {
-  font-family: 'Roboto', sans-serif;
-  background-color: #fafafa;
+/* Reset básico */
+* {
   margin: 0;
   padding: 0;
+  box-sizing: border-box;
+  font-family: "Segoe UI", sans-serif;
+}
+
+body {
+  background-color: #fffaf4;
   color: #333;
+  padding-bottom: 100px;
 }
 
-/* Título principal (nombre de la página) */
+header {
+  text-align: center;
+  background-color: #fdf2e9;
+  padding: 20px;
+  border-bottom: 2px solid #e0c3a0;
+}
+
 header h1 {
-  font-family: 'Playfair Display', serif;
-  font-size: 3.5rem;
-  color: #bfa46f; /* dorado */
-  text-align: center;
-  margin-top: 30px;
-  margin-bottom: 5px;
-  font-weight: 700;
-  letter-spacing: 2px;
+  font-size: 2.5em;
+  color: #b68c40;
 }
 
-/* Descripción debajo del título */
 header p {
-  font-family: 'Playfair Display', serif;
-  font-size: 1.5rem;
-  color: #a68f43;
-  text-align: center;
-  margin-top: 0;
-  margin-bottom: 40px;
-  font-style: italic;
+  font-size: 1.2em;
+  color: #a67c28;
+  margin-top: 5px;
 }
 
-/* Contenedor principal de productos: filas y columnas */
 .products {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
   gap: 20px;
-  padding: 20px 40px;
+  padding: 30px;
 }
 
-/* Cada producto */
 .product {
-  border: 1px solid #ddd;
-  border-radius: 8px;
+  background-color: white;
+  border-radius: 15px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   padding: 15px;
   text-align: center;
-  box-shadow: 0 2px 8px rgba(191,164,111,0.3);
-  background-color: #fff;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  transition: transform 0.3s ease;
+  transition: transform 0.2s;
 }
 
 .product:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 6px 15px rgba(191,164,111,0.5);
+  transform: scale(1.03);
 }
 
-/* Imagen del producto con marco difuminado (sombra suave) */
 .product img {
-  width: 180px;
-  height: 180px;
-  object-fit: contain;
-  margin-bottom: 10px;
-  border-radius: 8px;
-  box-shadow: 0 0 15px rgba(191,164,111,0.6);
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 12px;
+  box-shadow: 0 0 15px rgba(180, 140, 64, 0.3);
+  cursor: pointer;
+  transition: transform 0.2s;
 }
 
-/* Botón agregar al carrito - dorado elegante */
+.product img:hover {
+  transform: scale(1.05);
+}
+
+.product h3 {
+  margin: 10px 0 5px;
+  font-size: 1.1em;
+  color: #5a3b0a;
+}
+
+.product p {
+  font-size: 1em;
+  color: #444;
+  margin-bottom: 10px;
+}
+
 .btn {
-  background-color: #bfa46f;
-  border: none;
+  background: linear-gradient(135deg, #e8c061, #c69a2d);
   color: white;
-  padding: 10px 18px;
-  margin-top: auto;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 25px;
   cursor: pointer;
-  border-radius: 8px;
-  transition: background-color 0.3s ease, box-shadow 0.3s ease;
-  font-weight: 600;
-  font-family: 'Roboto', sans-serif;
-  box-shadow: 0 3px 8px rgba(191,164,111,0.6);
+  font-weight: bold;
+  transition: background 0.3s ease;
 }
 
 .btn:hover {
-  background-color: #a68f43;
-  box-shadow: 0 5px 12px rgba(166,143,67,0.8);
+  background: linear-gradient(135deg, #f1d189, #b8860b);
 }
 
-/* Botón comprar WhatsApp */
+/* Carrito */
+.cart {
+  position: fixed;
+  top: 80px;
+  left: 20px;
+  width: 280px;
+  background: #fff9ee;
+  border: 2px solid #e7c68f;
+  border-radius: 15px;
+  padding: 15px;
+  box-shadow: 0 0 15px rgba(210, 170, 90, 0.2);
+  z-index: 999;
+}
+
+.cart h2 {
+  font-size: 1.2em;
+  margin-bottom: 10px;
+  color: #b67c1d;
+}
+
+.cart ul {
+  list-style: none;
+  margin-bottom: 10px;
+  max-height: 200px;
+  overflow-y: auto;
+  padding-left: 5px;
+}
+
+.cart li {
+  padding: 6px 0;
+  font-size: 0.95em;
+  border-bottom: 1px dotted #d2b07b;
+}
+
+/* WhatsApp button */
 #whatsapp-button {
   display: inline-block;
-  background-color: #d4af37;
-  color: #fff;
-  padding: 14px 28px;
-  border-radius: 12px;
-  font-weight: 700;
-  text-decoration: none;
   text-align: center;
-  box-shadow: 0 6px 15px rgba(212,175,55,0.7);
-  font-family: 'Roboto', sans-serif;
-  margin-top: 15px;
-  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+  margin-top: 10px;
+  width: 100%;
+  background: linear-gradient(135deg, #d4af37, #a87f1d);
+  color: white;
+  text-decoration: none;
+  padding: 10px 0;
+  border-radius: 20px;
+  font-weight: bold;
+  transition: background 0.3s ease;
 }
 
 #whatsapp-button:hover {
-  background-color: #b38925;
-  box-shadow: 0 8px 20px rgba(179,137,37,0.9);
+  background: linear-gradient(135deg, #f4ca5d, #b3831c);
 }
 
-/* Carrito fijo oculto a la izquierda */
-.cart {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 320px;
-  height: 100vh;
-  background: #fefcf2;
-  box-shadow: 2px 0 12px rgba(191,164,111,0.8);
-  overflow-y: auto;
-  padding: 25px 20px;
-  transform: translateX(-100%);
-  transition: transform 0.3s ease-in-out;
-  z-index: 1000;
-  font-family: 'Roboto', sans-serif;
-}
-
-/* Mostrar carrito */
-.cart.show {
-  transform: translateX(0);
-}
-
-/* Lista de items en carrito */
-#cart-items {
-  list-style: none;
-  padding: 0;
-  margin-bottom: 15px;
-}
-
-#cart-items li {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 15px;
-  font-size: 14px;
-  border-bottom: 1px solid #ddd;
-  padding-bottom: 8px;
-}
-
-/* Imagen mini en carrito */
-#cart-items li img {
-  width: 40px;
-  height: 40px;
-  object-fit: contain;
-  margin-right: 10px;
-  border-radius: 6px;
-  box-shadow: 0 0 8px rgba(191,164,111,0.5);
-}
-
-/* Contenedor texto + botón eliminar */
-.cart-item-content {
-  display: flex;
-  align-items: center;
-  flex: 1;
-}
-
-/* Botón eliminar del carrito */
-.remove-btn {
-  background-color: #cc4b4b;
-  border: none;
-  color: white;
-  font-weight: 700;
-  border-radius: 6px;
-  padding: 6px 10px;
-  cursor: pointer;
-  box-shadow: 0 3px 6px rgba(204,75,75,0.7);
-  transition: background-color 0.3s ease;
-}
-
-.remove-btn:hover {
-  background-color: #992e2e;
-}
-
-/* Footer centrado */
+/* Footer */
 footer {
   text-align: center;
-  padding: 20px 0;
-  color: #a68f43;
-  font-family: 'Playfair Display', serif;
-  font-size: 1rem;
+  padding: 20px;
+  background: #fdf2e9;
+  border-top: 2px solid #e0c3a0;
+  position: relative;
+  margin-top: 50px;
 }
 
-/* Modal - fondo oscuro */
-.modal {
-  display: none; /* oculto por defecto */
+/* Modal para imagen grande */
+.image-modal {
   position: fixed;
-  z-index: 1000;
-  padding-top: 60px;
-  left: 0;
   top: 0;
+  left: 0;
   width: 100%;
   height: 100%;
-  overflow: auto; /* scroll si es necesario */
-  background-color: rgba(0,0,0,0.8);
+  background-color: rgba(0, 0, 0, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
 }
 
-/* Imagen dentro del modal */
-.modal-content {
-  margin: auto;
-  display: block;
-  max-width: 80%;
-  max-height: 80vh;
+.image-modal-content {
+  position: relative;
+  max-width: 90%;
+  max-height: 90%;
+  border-radius: 12px;
+  overflow: hidden;
+  background: white;
+  padding: 15px;
+}
+
+.image-modal-content img {
+  width: 100%;
+  height: auto;
   border-radius: 10px;
 }
 
-/* Texto descriptivo debajo de la imagen */
-#modal-caption {
-  margin: 15px auto;
-  text-align: center;
-  color: #f1f1f1;
-  font-size: 18px;
-}
-
-/* Botón cerrar */
-.close {
+.close-btn {
   position: absolute;
-  top: 25px;
-  right: 35px;
-  color: #fff;
-  font-size: 40px;
+  top: 10px;
+  right: 15px;
+  font-size: 28px;
   font-weight: bold;
+  color: #444;
   cursor: pointer;
-  user-select: none;
-  transition: 0.3s;
 }
-.close:hover {
-  color: #ccc;
-  transform: scale(1.2);
-}
-
