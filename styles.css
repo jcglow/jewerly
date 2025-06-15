@@ -1,54 +1,71 @@
-/* Estilos básicos de productos */
+/* Estilos generales */
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  background: #fff8f0;
+}
+
 .products-container {
   display: flex;
   flex-wrap: wrap;
-  gap: 1rem;
+  justify-content: flex-start;
   padding: 1rem;
-  margin-right: 340px; /* espacio para el carrito abierto */
+  margin-right: 340px; /* espacio para carrito lateral en desktop */
 }
 
 .product {
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  padding: 0.5rem;
-  width: 180px;
-  box-shadow: 0 0 8px rgba(0,0,0,0.05);
+  width: 200px;
+  margin: 1rem;
+  padding: 0.8rem;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
   text-align: center;
-  background: #fff;
+  cursor: pointer;
   transition: box-shadow 0.3s ease;
 }
 
 .product:hover {
-  box-shadow: 0 0 12px rgba(184, 134, 11, 0.5); /* brillo dorado */
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
 }
 
 .product img {
   width: 100%;
-  height: 160px;
+  border-radius: 10px;
+  filter: drop-shadow(0 0 4px rgba(184, 134, 11, 0.4));
   object-fit: cover;
-  border-radius: 8px;
-  filter: drop-shadow(0 0 4px rgba(184,134,11,0.4));
-  cursor: pointer;
+  max-height: 150px;
 }
 
-/* Botón agregar */
+.product h3 {
+  margin: 0.5rem 0;
+  font-size: 1.1rem;
+}
+
+.product p {
+  font-weight: bold;
+  color: #b8860b;
+  margin-bottom: 0.8rem;
+}
+
 .btn {
-  background-color: #b8860b; /* dorado */
+  background-color: #b8860b;
   color: white;
   border: none;
-  padding: 0.5rem 1rem;
-  border-radius: 6px;
-  cursor: pointer;
+  padding: 0.6rem 1.1rem;
+  border-radius: 25px;
   font-weight: 600;
-  margin-top: 0.5rem;
+  cursor: pointer;
   transition: background-color 0.3s ease;
 }
 
 .btn:hover {
-  background-color: #a37300; /* dorado más oscuro */
+  background-color: #a17407;
 }
 
-/* Panel lateral del carrito */
+/* Panel carrito lateral */
 .cart-panel {
   position: fixed;
   right: 0;
@@ -56,88 +73,83 @@
   width: 320px;
   height: 100vh;
   background: white;
-  box-shadow: -2px 0 12px rgba(0,0,0,0.15);
-  padding: 1rem;
+  box-shadow: -2px 0 10px rgba(0,0,0,0.15);
+  padding: 1rem 1.5rem;
   overflow-y: auto;
   z-index: 9999;
   display: flex;
   flex-direction: column;
 }
 
-.hidden {
+.cart-panel.hidden {
   display: none;
 }
 
-/* Botón cerrar carrito */
 .close-btn {
   background: transparent;
   border: none;
-  font-size: 1.5rem;
-  cursor: pointer;
+  font-size: 1.8rem;
   align-self: flex-end;
-  margin-bottom: 0.5rem;
-  color: #333;
-  transition: color 0.3s ease;
-}
-.close-btn:hover {
-  color: #a37300;
+  cursor: pointer;
+  margin-bottom: 1rem;
+  color: #b8860b;
 }
 
-/* Lista del carrito */
 #cart-items {
   list-style: none;
   padding: 0;
-  margin: 0 0 1rem 0;
   flex-grow: 1;
   overflow-y: auto;
+  margin-bottom: 1rem;
 }
 
 #cart-items li {
+  border-bottom: 1px solid #ddd;
   padding: 0.5rem 0;
-  border-bottom: 1px solid #eee;
+  font-size: 0.95rem;
+  display: flex;
+  flex-direction: column;
 }
 
-/* Botón quitar 1 */
+#cart-items li strong {
+  font-weight: 700;
+  margin-bottom: 0.3rem;
+}
+
 .remove-btn {
-  background-color: #e04e4e;
+  background: #e27a3f;
   border: none;
   color: white;
-  padding: 2px 6px;
-  border-radius: 4px;
+  border-radius: 20px;
+  padding: 3px 10px;
   font-size: 0.8rem;
   cursor: pointer;
-  margin-top: 4px;
+  align-self: flex-start;
+  margin-top: 5px;
   transition: background-color 0.3s ease;
 }
 
 .remove-btn:hover {
-  background-color: #a62727;
+  background-color: #bf5a1e;
 }
 
-/* Botón WhatsApp */
 .whatsapp-btn {
-  background-color: #b8860b;
+  width: 100%;
+  font-size: 1.1rem;
+  padding: 1rem;
+  border-radius: 30px;
+  font-weight: 700;
   text-align: center;
-  padding: 0.75rem;
-  border-radius: 6px;
-  font-weight: bold;
   text-decoration: none;
-  color: white;
-  display: block;
-  margin-top: auto;
-  transition: background-color 0.3s ease;
+  display: inline-block;
 }
 
-.whatsapp-btn:hover {
-  background-color: #a37300;
-}
-
-/* Overlay para imagen grande */
+/* Overlay imagen grande */
 .image-overlay {
   position: fixed;
   top: 0; left: 0;
   width: 100vw; height: 100vh;
-  background: rgba(0,0,0,0.7);
+  background: rgba(0, 0, 0, 0.6);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -146,82 +158,37 @@
 
 .image-popup {
   background: white;
-  border-radius: 8px;
+  padding: 1rem;
+  border-radius: 12px;
   max-width: 90vw;
   max-height: 90vh;
-  padding: 1rem;
-  text-align: center;
-  position: relative;
   overflow: auto;
+  text-align: center;
 }
 
 .image-popup img {
   max-width: 100%;
   max-height: 80vh;
   object-fit: contain;
-  border-radius: 6px;
+  border-radius: 10px;
 }
 
 .image-popup button {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  background: transparent;
+  margin-top: 10px;
+  background: #b8860b;
   border: none;
-  font-size: 1.5rem;
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 25px;
   cursor: pointer;
-  color: #333;
-  transition: color 0.3s ease;
+  font-weight: 600;
 }
 
 .image-popup button:hover {
-  color: #a37300;
+  background-color: #a17407;
 }
 
-/* Responsive para móviles */
-@media (max-width: 768px) {
-  .products-container {
-    margin-right: 0; /* Quitar margen para carrito */
-    justify-content: center;
-  }
-
-  .product {
-    width: 45vw; /* Casi la mitad de la pantalla */
-  }
-
-  /* El panel carrito pasa a pantalla completa y cubre todo */
-  .cart-panel {
-    position: fixed;
-    bottom: 0;
-    right: 0;
-    left: 0;
-    height: 50vh; /* Ocupa mitad de la pantalla */
-    width: 100vw;
-    box-shadow: 0 -4px 10px rgba(0, 0, 0, 0.2);
-    border-top-left-radius: 12px;
-    border-top-right-radius: 12px;
-    padding: 1rem 1.5rem;
-    overflow-y: auto;
-  }
-
-  /* Botón cerrar más grande y accesible */
-  .close-btn {
-    font-size: 2rem;
-    margin-bottom: 1rem;
-  }
-
-  /* Botón agregar más grande */
-  .btn {
-    padding: 0.75rem 1.2rem;
-    font-size: 1.1rem;
-  }
-
-  /* Botón WhatsApp ocupa todo el ancho */
-  .whatsapp-btn {
-    font-size: 1.2rem;
-    padding: 1rem;
-  }
-/* Botón flotante para abrir carrito */
+/* Botón flotante abrir carrito móvil */
 .open-cart-btn {
   position: fixed;
   bottom: 20px;
@@ -236,16 +203,53 @@
   cursor: pointer;
   box-shadow: 0 4px 8px rgba(184, 134, 11, 0.6);
   z-index: 10001;
-  display: none; /* por defecto oculto en escritorio */
+  display: none; /* oculto por defecto */
   align-items: center;
   justify-content: center;
 }
 
 /* Mostrar botón abrir carrito solo en móvil */
 @media (max-width: 768px) {
+  .products-container {
+    margin-right: 0;
+    justify-content: center;
+  }
+
+  .product {
+    width: 45vw;
+    margin: 0.5rem;
+  }
+
+  .cart-panel {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    height: 50vh;
+    width: 100vw;
+    box-shadow: 0 -4px 10px rgba(0, 0, 0, 0.2);
+    border-top-left-radius: 12px;
+    border-top-right-radius: 12px;
+    padding: 1rem 1.5rem;
+    overflow-y: auto;
+  }
+
+  .close-btn {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+  }
+
+  .btn {
+    padding: 0.75rem 1.2rem;
+    font-size: 1.1rem;
+  }
+
+  .whatsapp-btn {
+    font-size: 1.2rem;
+    padding: 1rem;
+  }
+
   .open-cart-btn {
     display: flex;
   }
 }
-
-
