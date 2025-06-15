@@ -19,11 +19,24 @@ const products = [
   { id: 18, name: "Juego cadena y manilla enchapado en oro 14k con zirconias, 50cm y 20cm", price: 50, image: "18.jpeg" }
 ];
 
-const cart = [];
+const cart = {};
 
 function addToCart(product) {
-  cart.push(product);
+  if (cart[product.id]) {
+    cart[product.id].quantity += 1;
+  } else {
+    cart[product.id] = { ...product, quantity: 1 };
+  }
   updateCart();
+  showCart();
+}
+
+function removeFromCart(productId) {
+  if (cart[productId]) {
+    cart[productId].quantity -= 1;
+    if (cart[productId].quantity <= 0) delete cart[productId];
+    updateCart();
+  }
 }
 
 function updateCart() {
@@ -34,13 +47,13 @@ function updateCart() {
   cartList.innerHTML = "";
   let total = 0;
 
-  cart.forEach((item, index) => {
-    total += item.price;
-
+  Object.values(cart).forEach(item => {
+    total += item.price * item.quantity;
     const li = document.createElement("li");
     li.innerHTML = `
-      ${item.name} - $${item.price}
-      <button class="remove-btn" onclick="removeFromCart(${index})">❌</button>
+      <strong>${item.name}</strong><br>
+      Cantidad: ${item.quantity} - Subtotal: $${item.price * item.quantity}<br>
+      <button class="remove-btn" onclick="removeFromCart(${item.id})">❌ Quitar 1</button>
     `;
     cartList.appendChild(li);
   });
@@ -48,34 +61,15 @@ function updateCart() {
   totalEl.textContent = `Total: $${total}`;
 
   const msg = `Hola JC Glow ✨ Quiero comprar:%0A` +
-    cart.map(item => `• ${item.name} - $${item.price}`).join("%0A") +
+    Object.values(cart).map(item => `• ${item.name} x${item.quantity} - $${item.price * item.quantity}`).join("%0A") +
     `%0A%0ATotal: $${total}`;
 
   whatsappBtn.href = `https://wa.me/17865336479?text=${msg}`;
 }
 
-
-// Mostrar imagen grande en modal
-function showImageModal(src) {
-  const modal = document.createElement("div");
-  modal.className = "image-modal";
-  modal.innerHTML = `
-    <div class="image-modal-content">
-      <span class="close-btn">&times;</span>
-      <img src="${src}" alt="Vista ampliada" />
-    </div>
-  `;
-  document.body.appendChild(modal);
-
-  modal.querySelector(".close-btn").onclick = () => {
-    modal.remove();
-  };
-
-  modal.onclick = (e) => {
-    if (e.target === modal) {
-      modal.remove();
-    }
-  };
+function showCart() {
+  const cartPanel = document.getElementById("cart-panel");
+  cartPanel.classList.remove("hidden");
 }
 
 window.onload = () => {
@@ -84,7 +78,7 @@ window.onload = () => {
     const div = document.createElement("div");
     div.className = "product";
     div.innerHTML = `
-      <img src="${product.image}" alt="${product.name}" onclick="showImageModal('${product.image}')">
+      <img src="${product.image}" alt="${product.name}" onclick="showImage('${product.image}')">
       <h3>${product.name}</h3>
       <p>$${product.price}</p>
       <button class="btn" onclick='addToCart(${JSON.stringify(product)})'>Agregar al carrito</button>
@@ -93,7 +87,14 @@ window.onload = () => {
   });
 };
 
-function removeFromCart(index) {
-  cart.splice(index, 1);
-  updateCart();
+function showImage(image) {
+  const overlay = document.createElement("div");
+  overlay.className = "image-overlay";
+  overlay.innerHTML = `
+    <div class="image-popup">
+      <img src="${image}" alt="Imagen ampliada">
+      <button onclick="this.parentElement.parentElement.remove()">Cerrar</button>
+    </div>
+  `;
+  document.body.appendChild(overlay);
 }
