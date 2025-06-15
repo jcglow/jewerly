@@ -1,3 +1,4 @@
+// Lista de productos (completa con todos tus productos)
 const products = [
   { id: 1, name: "Aretes con estilo de diseño enchapados en oro 14k", price: 15, image: "1.jpeg" },
   { id: 2, name: "Aretes enchapados en oro 14k con zirconias y doble cierres", price: 15, image: "2.jpeg" },
@@ -19,36 +20,43 @@ const products = [
   { id: 18, name: "Juego cadena y manilla enchapado en oro 14k con zirconias, 50cm y 20cm", price: 50, image: "18.jpeg" }
 ];
 
+// Carrito como objeto con cantidades
 const cart = {};
 
+// Agrega producto al carrito
 function addToCart(product) {
   if (cart[product.id]) {
-    cart[product.id].quantity += 1;
+    cart[product.id].quantity += 1; // Si ya está, suma 1
   } else {
-    cart[product.id] = { ...product, quantity: 1 };
+    cart[product.id] = { ...product, quantity: 1 }; // Si no, agrega
   }
   updateCart();
   showCart();
 }
 
+// Quita una unidad de producto del carrito
 function removeFromCart(productId) {
   if (cart[productId]) {
-    cart[productId].quantity -= 1;
-    if (cart[productId].quantity <= 0) delete cart[productId];
+    cart[productId].quantity -= 1; // Quita 1
+    if (cart[productId].quantity <= 0) {
+      delete cart[productId]; // Si queda 0, elimina el producto
+    }
     updateCart();
   }
 }
 
+// Actualiza la lista del carrito y total
 function updateCart() {
   const cartList = document.getElementById("cart-items");
   const totalEl = document.getElementById("total");
   const whatsappBtn = document.getElementById("whatsapp-button");
 
-  cartList.innerHTML = "";
+  cartList.innerHTML = ""; // Limpia lista
   let total = 0;
 
   Object.values(cart).forEach(item => {
     total += item.price * item.quantity;
+
     const li = document.createElement("li");
     li.innerHTML = `
       <strong>${item.name}</strong><br>
@@ -60,6 +68,7 @@ function updateCart() {
 
   totalEl.textContent = `Total: $${total}`;
 
+  // Generar mensaje WhatsApp con resumen
   const msg = `Hola JC Glow ✨ Quiero comprar:%0A` +
     Object.values(cart).map(item => `• ${item.name} x${item.quantity} - $${item.price * item.quantity}`).join("%0A") +
     `%0A%0ATotal: $${total}`;
@@ -67,12 +76,44 @@ function updateCart() {
   whatsappBtn.href = `https://wa.me/17865336479?text=${msg}`;
 }
 
+// Muestra el panel lateral del carrito
 function showCart() {
   const cartPanel = document.getElementById("cart-panel");
   cartPanel.classList.remove("hidden");
 }
 
+// Muestra la imagen en un overlay
+function showImage(image) {
+  // Crear overlay con contenido
+  const overlay = document.createElement("div");
+  overlay.className = "image-overlay";
+  overlay.innerHTML = `
+    <div class="image-popup">
+      <img src="${image}" alt="Imagen ampliada" />
+      <button onclick="this.parentElement.parentElement.remove()">✖ Cerrar</button>
+    </div>
+  `;
+  document.body.appendChild(overlay);
+
+  // Permitir cerrar al hacer clic fuera de la imagen popup
+  overlay.addEventListener("click", (e) => {
+    if (e.target === overlay) {
+      overlay.remove();
+    }
+  });
+
+  // Permitir cerrar con tecla ESC
+  window.addEventListener("keydown", function escHandler(event) {
+    if (event.key === "Escape") {
+      overlay.remove();
+      window.removeEventListener("keydown", escHandler);
+    }
+  });
+}
+
+// Cerrar carrito al hacer clic en el botón "Cerrar"
 window.onload = () => {
+  // Renderizar productos
   const container = document.getElementById("products");
   products.forEach(product => {
     const div = document.createElement("div");
@@ -85,16 +126,12 @@ window.onload = () => {
     `;
     container.appendChild(div);
   });
-};
 
-function showImage(image) {
-  const overlay = document.createElement("div");
-  overlay.className = "image-overlay";
-  overlay.innerHTML = `
-    <div class="image-popup">
-      <img src="${image}" alt="Imagen ampliada">
-      <button onclick="this.parentElement.parentElement.remove()">Cerrar</button>
-    </div>
-  `;
-  document.body.appendChild(overlay);
-}
+  // Botón cerrar carrito
+  const closeCartBtn = document.getElementById("close-cart");
+  const cartPanel = document.getElementById("cart-panel");
+
+  closeCartBtn.addEventListener("click", () => {
+    cartPanel.classList.add("hidden");
+  });
+};
