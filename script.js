@@ -25,6 +25,7 @@ const cart = [];
 function addToCart(product) {
   cart.push(product);
   updateCart();
+  showCart(); // Mostrar carrito al agregar producto
 }
 
 function updateCart() {
@@ -37,7 +38,10 @@ function updateCart() {
   cart.forEach(item => {
     total += item.price;
     const li = document.createElement("li");
-    li.textContent = `${item.name} - $${item.price}`;
+
+    // Añadir mini imagen + texto
+    li.innerHTML = `<img src="${item.image}" alt="${item.name}"> ${item.name} - $${item.price}`;
+
     cartList.appendChild(li);
   });
 
@@ -50,8 +54,18 @@ function updateCart() {
   whatsappBtn.href = `https://wa.me/17865336479?text=${msg}`;
 }
 
+function showCart() {
+  document.querySelector(".cart").classList.add("show");
+}
+
+function hideCart() {
+  document.querySelector(".cart").classList.remove("show");
+}
+
+// Opcional: agregar un botón para cerrar carrito
 window.onload = () => {
   const container = document.getElementById("products");
+
   products.forEach(product => {
     const div = document.createElement("div");
     div.className = "product";
@@ -63,4 +77,12 @@ window.onload = () => {
     `;
     container.appendChild(div);
   });
+
+  // Crear botón para cerrar carrito
+  const closeBtn = document.createElement("button");
+  closeBtn.textContent = "Cerrar carrito";
+  closeBtn.className = "btn";
+  closeBtn.style.marginTop = "20px";
+  closeBtn.onclick = hideCart;
+  document.querySelector(".cart").appendChild(closeBtn);
 };
