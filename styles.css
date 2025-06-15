@@ -177,3 +177,49 @@
 .image-popup button:hover {
   color: #a37300;
 }
+
+/* Responsive para móviles */
+@media (max-width: 768px) {
+  .products-container {
+    margin-right: 0; /* Quitar margen para carrito */
+    justify-content: center;
+  }
+
+  .product {
+    width: 45vw; /* Casi la mitad de la pantalla */
+  }
+
+  /* El panel carrito pasa a pantalla completa y cubre todo */
+  .cart-panel {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    height: 50vh; /* Ocupa mitad de la pantalla */
+    width: 100vw;
+    box-shadow: 0 -4px 10px rgba(0, 0, 0, 0.2);
+    border-top-left-radius: 12px;
+    border-top-right-radius: 12px;
+    padding: 1rem 1.5rem;
+    overflow-y: auto;
+  }
+
+  /* Botón cerrar más grande y accesible */
+  .close-btn {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+  }
+
+  /* Botón agregar más grande */
+  .btn {
+    padding: 0.75rem 1.2rem;
+    font-size: 1.1rem;
+  }
+
+  /* Botón WhatsApp ocupa todo el ancho */
+  .whatsapp-btn {
+    font-size: 1.2rem;
+    padding: 1rem;
+  }
+}
+
