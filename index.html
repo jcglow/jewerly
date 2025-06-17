@@ -10,11 +10,16 @@
   
   <!-- CSS externo -->
   <link rel="stylesheet" href="styles.css" />
+  
+  <!-- Favicon (opcional) -->
+  <link rel="icon" href="favicon.ico" />
 </head>
 <body>
 
   <!-- Banner con logo y nombre -->
   <header class="banner">
+    <!-- Asegúrate que logo.png esté en la misma carpeta que este archivo HTML,
+         o ajusta la ruta si está en otra carpeta, por ejemplo: images/logo.png -->
     <img src="logo.png" alt="Logo JC Glow" class="logo" />
     <div class="banner-text">
       <h1>JC Glow Jewelry</h1>
@@ -38,9 +43,11 @@
     <span id="cart-count" class="cart-count hidden">0</span>
   </button>
 
+  <!-- Overlay del carrito (fuera del panel para cubrir toda la pantalla) -->
+  <div id="cart-overlay" class="cart-overlay hidden"></div>
+
   <!-- Panel lateral carrito -->
   <section id="cart-panel" class="cart-panel hidden" aria-label="Carrito de compras">
-    <div id="cart-overlay" class="cart-overlay hidden"></div>
     <h2>Tu Carrito</h2>
     <ul id="cart-items"></ul>
     <p id="total">Total: $0</p>
@@ -49,12 +56,11 @@
     <button id="cart-close" aria-label="Cerrar carrito">✖</button>
   </section>
   
-
   <!-- Overlay para imagen grande -->
   <div id="image-overlay" class="image-overlay hidden" role="dialog" aria-modal="true" aria-label="Vista ampliada de imagen">
     <div class="image-popup">
       <img id="popup-img" src="" alt="Imagen ampliada" />
-      <button id="image-close" aria-label="Cerrar imagen">Cerrar</button>
+      <button id="image-close" aria-label="Cerrar imagen ampliada">✖</button>
     </div>
   </div>
 
