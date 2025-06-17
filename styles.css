@@ -169,13 +169,14 @@ h1, h2, h3, h4 {
   height: 100vh;
   background: white;
   box-shadow: -2px 0 20px rgba(184,134,11,0.8);
-  padding: 1rem 1.5rem;
+  padding: 1rem 1.5rem 2.5rem 1.5rem; /* ⬅️ extra espacio abajo */
   overflow-y: auto;
   z-index: 1200;
   display: flex;
   flex-direction: column;
   gap: 1rem;
 }
+
 
 .cart-panel h2 {
   margin-top: 0;
@@ -308,5 +309,11 @@ h1, h2, h3, h4 {
   background: rgba(0,0,0,0.3);
   z-index: 1100;
 }
+
+  #whatsapp-button {
+  margin-top: auto;
+  margin-bottom: 1rem; /* espacio extra visible */
+}
+
 
 }
