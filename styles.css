@@ -259,15 +259,18 @@ body {
   outline: none;
 }
 
-/* Overlay imagen ampliada */
+/* Overlay de imagen */
 .image-overlay {
   position: fixed;
-  inset: 0;
-  background-color: rgba(0,0,0,0.75);
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0,0,0,0.75);
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 1200;
+  z-index: 9999;
 }
 
 .image-popup {
