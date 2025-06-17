@@ -206,3 +206,22 @@ window.addEventListener("load", () => {
   renderProducts();
   updateCartUI();
 });
+
+const cartOverlay = document.getElementById("cart-overlay");
+
+function showCart() {
+  cartPanel.classList.remove("hidden");
+  cartOverlay.classList.remove("hidden");
+}
+
+function hideCart() {
+  cartPanel.classList.add("hidden");
+  cartOverlay.classList.add("hidden");
+}
+
+cartOverlay.addEventListener("click", hideCart);
+
+document.addEventListener("keydown", (e) => {
+  if (e.key === "Escape") hideCart();
+});
+
