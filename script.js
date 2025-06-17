@@ -220,7 +220,7 @@ document.getElementById("clear-cart").addEventListener("click", () => {
 });
 
 // Inicialización
-window.addEventListener("load", () => {
+document.addEventListener("DOMContentLoaded", () => { // <--- Por esta línea
   renderProducts();
   updateCartUI();
 });
