@@ -69,10 +69,7 @@ body {
 }
 
 /* Cada producto (esto dependerá de cómo generes el HTML dinámico) */
-/* El HTML dinámico en script.js usa ".product" no ".product-card" */
-/* Asegúrate que tus estilos para los productos se apliquen al selector correcto. */
-/* He cambiado .product-card a .product para que coincida con tu JS. */
-.product { /* Cambiado de .product-card a .product */
+.product {
   background: #fff;
   border: 1px solid #ddd1a6;
   border-radius: 10px;
@@ -83,33 +80,33 @@ body {
   cursor: pointer;
 }
 
-.product:hover { /* Cambiado de .product-card:hover a .product:hover */
+.product:hover {
   transform: translateY(-5px);
   box-shadow: 0 8px 16px rgba(191,165,106,0.5);
 }
 
-.product img { /* Cambiado de .product-card img a .product img */
+.product img {
   max-width: 100%;
-  height: auto; /* Importante para mantener la proporción */
-  object-fit: cover; /* o 'contain' si prefieres que la imagen nunca se recorte en el listado de productos */
+  height: 200px; /* Ajusta esta altura si las miniaturas se ven muy estiradas o pequeñas */
+  object-fit: cover; /* Recorta la imagen para que rellene el espacio, manteniendo proporción */
   border-radius: 8px;
   margin-bottom: 0.8rem;
 }
 
-.product h3 { /* Cambiado de .product-card h3 a .product h3 */
+.product h3 {
   font-family: 'Playfair Display', serif;
   font-size: 1.3rem;
   margin-bottom: 0.5rem;
   color: #7a6300;
 }
 
-.product p { /* Cambiado de .product-card p a .product p */
+.product p {
   font-size: 1rem;
   color: #5a4b00;
   margin-bottom: 0.8rem;
 }
 
-.product .price { /* Cambiado de .product-card .price a .product .price */
+.product .price {
   font-weight: 700;
   color: #b38600;
   font-size: 1.1rem;
@@ -156,7 +153,6 @@ body {
   color: #3d2f00;
   font-size: 28px;
   z-index: 1100;
-  transition: background-color 0.3s ease;
 }
 
 #cart-toggle:hover,
@@ -264,7 +260,7 @@ body {
   outline: none;
 }
 
-/* Overlay de imagen - CORREGIDO */
+/* Overlay de imagen - AJUSTADO PARA MEJOR TAMAÑO DE ZOOM */
 .image-overlay {
   position: fixed;
   top: 0;
@@ -280,39 +276,43 @@ body {
 
 .image-popup {
   position: relative;
-  max-width: 90vw;   /* Aumentado para dar más espacio a la imagen */
-  max-height: 90vh;  /* Aumentado para dar más espacio a la imagen */
-  display: flex;     /* Usar flexbox para centrar la imagen */
+  /* Reducimos el tamaño máximo del contenedor del pop-up */
+  max-width: 70vw;   /* Disminuido de 90vw a 70vw */
+  max-height: 70vh;  /* Disminuido de 90vh a 70vh */
+  display: flex;
   justify-content: center;
   align-items: center;
+  background-color: #fffaf0; /* Fondo para el popup de la imagen */
+  border-radius: 12px;
+  padding: 20px; /* Espacio interno */
+  box-shadow: 0 0 30px rgba(0,0,0,0.5); /* Sombra más pronunciada */
 }
 
 .image-popup img {
-  max-width: 100%;    /* Asegura que la imagen no se desborde del popup */
-  max-height: 100%;   /* Asegura que la imagen no se desborde del popup */
-  object-fit: contain; /* ¡Clave! Escala la imagen para que quepa sin recortarse, manteniendo su relación de aspecto. */
-  border-radius: 12px;
-  box-shadow: 0 0 20px rgba(191,165,106,0.9);
+  max-width: 100%;    /* La imagen no excederá el 100% del contenedor padre */
+  max-height: 100%;   /* La imagen no excederá el 100% del contenedor padre */
+  object-fit: contain; /* ¡Clave! Escala la imagen para que quepa sin recortarse. */
+  border-radius: 8px; /* Bordes ligeramente redondeados para la imagen */
   display: block;
 }
 
-/* Botón cerrar imagen - CORREGIDO */
+/* Botón cerrar imagen */
 #image-close {
   position: absolute;
-  top: 10px;
-  right: 10px;
-  background: #bfa56a; /* Manteniendo tu estilo dorado */
+  top: 15px; /* Ajustada la posición del botón */
+  right: 15px; /* Ajustada la posición del botón */
+  background: #bfa56a;
   border: none;
   border-radius: 50%;
   width: 32px;
   height: 32px;
   font-size: 20px;
   font-weight: 700;
-  color: #3d2f00; /* Manteniendo tu estilo oscuro */
+  color: #3d2f00;
   cursor: pointer;
   box-shadow: 0 2px 8px rgba(191,165,106,0.8);
   transition: background-color 0.3s ease;
-  z-index: 10000; /* Asegura que esté por encima de la imagen */
+  z-index: 10000;
 }
 
 #image-close:hover,
@@ -345,7 +345,8 @@ body {
     width: 100%;
     max-width: 100vw;
   }
+  .image-popup {
+    max-width: 90vw; /* En móviles, podemos hacer el pop-up un poco más grande */
+    max-height: 90vh;
+  }
 }
-
-/* IMPORTANTE: Este bloque CSS fue eliminado porque era un duplicado y causaba conflicto con #image-close. */
-/* .image-popup button { ... } */
