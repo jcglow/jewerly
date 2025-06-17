@@ -55,7 +55,6 @@ const productos = [
   { id: 53, name: "Cadena ajustable con dijes de iniciales y zirconias, enchapada en 14k", price: 15, image: "53.jpg" },
 ];
 
-
 // Carrito guardado o inicial vacío
 let cart = JSON.parse(localStorage.getItem("jcglowCart")) || {};
 
@@ -71,15 +70,16 @@ const cartCloseBtn = document.getElementById("cart-close");
 const imageOverlay = document.getElementById("image-overlay");
 const popupImg = document.getElementById("popup-img");
 const imageCloseBtn = document.getElementById("image-close");
+const cartOverlay = document.getElementById("cart-overlay");
 
 // Render productos en la página
 function renderProducts() {
   productsContainer.innerHTML = "";
-  products.forEach(product => {
+  productos.forEach(product => {
     const div = document.createElement("div");
     div.className = "product";
     div.innerHTML = `
-      <img src="${product.image}" alt="${product.name}" tabindex="0" role="button" aria-label="Ver imagen de ${product.name}" />
+      <img src="./${product.image}" alt="${product.name}" tabindex="0" role="button" aria-label="Ver imagen de ${product.name}" />
       <h3>${product.name}</h3>
       <p>$${product.price}</p>
       <button class="btn" aria-label="Agregar ${product.name} al carrito">Agregar al carrito</button>
@@ -120,14 +120,6 @@ function addToCart(product) {
   }
   saveCart();
   updateCartUI();
-  document.getElementById("clear-cart").addEventListener("click", () => {
-  cart = {};
-  localStorage.removeItem("jcglowCart");
-  updateCartUI();
-  hideCart();
-});
-
-
   showCart();
 }
 
@@ -175,16 +167,18 @@ function updateCartUI() {
 // Mostrar panel carrito
 function showCart() {
   cartPanel.classList.remove("hidden");
+  cartOverlay.classList.remove("hidden");
 }
 
 // Ocultar panel carrito
 function hideCart() {
   cartPanel.classList.add("hidden");
+  cartOverlay.classList.add("hidden");
 }
 
 // Mostrar imagen grande en overlay
 function showImage(image) {
-  popupImg.src = image;
+  popupImg.src = `./${image}`;
   imageOverlay.classList.remove("hidden");
 }
 
@@ -205,10 +199,24 @@ cartToggleBtn.addEventListener("click", () => {
 
 cartCloseBtn.addEventListener("click", hideCart);
 
+cartOverlay.addEventListener("click", hideCart);
+
 imageCloseBtn.addEventListener("click", hideImage);
 
 imageOverlay.addEventListener("click", (e) => {
   if (e.target === imageOverlay) hideImage();
+});
+
+document.addEventListener("keydown", (e) => {
+  if (e.key === "Escape") hideCart();
+});
+
+// Botón para vaciar carrito
+document.getElementById("clear-cart").addEventListener("click", () => {
+  cart = {};
+  localStorage.removeItem("jcglowCart");
+  updateCartUI();
+  hideCart();
 });
 
 // Inicialización
@@ -216,22 +224,3 @@ window.addEventListener("load", () => {
   renderProducts();
   updateCartUI();
 });
-
-const cartOverlay = document.getElementById("cart-overlay");
-
-function showCart() {
-  cartPanel.classList.remove("hidden");
-  cartOverlay.classList.remove("hidden");
-}
-
-function hideCart() {
-  cartPanel.classList.add("hidden");
-  cartOverlay.classList.add("hidden");
-}
-
-cartOverlay.addEventListener("click", hideCart);
-
-document.addEventListener("keydown", (e) => {
-  if (e.key === "Escape") hideCart();
-});
-
