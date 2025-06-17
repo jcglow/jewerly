@@ -87,14 +87,11 @@ body {
 
 .product img {
   max-width: 100%;
-  height: auto; /* Volvemos a auto, si te gustaba el recorte anterior, puedes poner 200px o 220px */
-  object-fit: contain; /* Cambiado a 'contain' para que no se recorte NADA en el listado */
-  /* Si prefieres que las imágenes del listado rellenen el espacio aunque se recorten,
-     vuelve a poner 'object-fit: cover;' y ajusta la 'height' si es necesario. */
+  height: auto; /* Mantener auto o ajustar si el listado lo necesita */
+  object-fit: contain; /* Para que las miniaturas no se recorten si sus proporciones lo permiten */
   border-radius: 8px;
   margin-bottom: 0.8rem;
 }
-
 
 .product h3 {
   font-family: 'Playfair Display', serif;
@@ -263,7 +260,7 @@ body {
   outline: none;
 }
 
-/* Overlay de imagen - ENFOCADO EN ESTO */
+/* Overlay de imagen - AJUSTADO PARA MÁS ALTURA QUE ANCHO */
 .image-overlay {
   position: fixed;
   top: 0;
@@ -279,25 +276,26 @@ body {
 
 .image-popup {
   position: relative;
-  /* Valores ajustados para un tamaño 'normal' grande sin recorte */
-  max-width: 800px; /* Aumentado a 800px para un tamaño grande pero que quepa */
-  max-height: 90vh; /* Permite que ocupe más altura si la imagen es vertical */
+  /* Favorecer la altura: ancho máximo más pequeño, altura máxima más grande */
+  max-width: 450px;   /* Reducido para que sea más estrecho */
+  max-height: 90vh;   /* Aumentado para que sea lo más alto posible */
   display: flex;
   justify-content: center;
   align-items: center;
   background-color: #fffaf0;
   border-radius: 12px;
-  padding: 15px; /* Pequeño padding alrededor de la imagen */
+  padding: 15px;
   box-shadow: 0 0 30px rgba(0,0,0,0.5);
-  overflow: hidden; /* Asegura que nada se salga del popup */
+  overflow: hidden;
 }
 
 .image-popup img {
   width: auto;
   height: auto;
-  max-width: 100%;    /* La imagen no excederá el 100% del contenedor popup */
-  max-height: 100%;   /* La imagen no excederá el 100% del contenedor popup */
-  object-fit: contain; /* ¡CRUCIAL! La imagen se escala para caber COMPLETA sin recortarse */
+  max-width: 100%;    /* La imagen se ajustará al 100% del ancho del popup (450px) */
+  max-height: 100%;   /* O al 100% de la altura del popup (90vh) */
+  object-fit: contain; /* ¡CRUCIAL! La imagen se escala para caber COMPLETA sin recortarse,
+                           respetando las dimensiones del 'image-popup' */
   border-radius: 8px;
   display: block;
 }
@@ -353,8 +351,8 @@ body {
   }
   /* En móviles, el popup debe ser más grande para aprovechar la pantalla */
   .image-popup {
-    max-width: 95vw; /* Casi todo el ancho */
-    max-height: 95vh; /* Casi toda la altura */
+    max-width: 90vw; /* En móviles, volvemos a un ancho más grande (casi todo el ancho disponible) */
+    max-height: 95vh; /* Y mucha altura para imágenes verticales */
     padding: 10px;
   }
   #image-close {
