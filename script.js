@@ -219,6 +219,24 @@ document.getElementById("clear-cart").addEventListener("click", () => {
   hideCart();
 });
 
+const productsContainer = document.querySelector('.products-container');
+productsContainer.innerHTML = ''; // limpia primero
+
+productos.forEach(producto => {
+  const productDiv = document.createElement('div');
+  productDiv.classList.add('product-card');
+
+  productDiv.innerHTML = `
+    <img src="${producto.imgSrc}" alt="${producto.name}" />
+    <h3>${producto.name}</h3>
+    <p class="price">$${producto.price}</p>
+    <button class="btn">Agregar al carrito</button>
+  `;
+
+  productsContainer.appendChild(productDiv);
+});
+
+
 // Inicialización
 window.addEventListener("load", () => {
   renderProducts();
