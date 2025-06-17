@@ -119,13 +119,12 @@ function addToCart(product) {
   saveCart();
   updateCartUI();
   document.getElementById("clear-cart").addEventListener("click", () => {
-  if (confirm("¿Estás segura de que deseas vaciar todo el carrito?")) {
-    cart = {};
-    localStorage.removeItem("jcglowCart");
-    updateCartUI();
-    hideCart();
-  }
+  cart = {};
+  localStorage.removeItem("jcglowCart");
+  updateCartUI();
+  hideCart();
 });
+
 
   showCart();
 }
