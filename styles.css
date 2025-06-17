@@ -218,15 +218,18 @@ h1, h2, h3, h4 {
 
 /* Botón cerrar carrito */
 #cart-close {
-  background: transparent;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: #fff;
   border: none;
-  color: #b8860b;
-  font-size: 1.5rem;
+  font-size: 1.4rem;
   font-weight: bold;
+  color: #b8860b;
   cursor: pointer;
-  align-self: flex-end;
-  margin-top: -1rem;
+  z-index: 1301;
 }
+
 
 /* Overlay imagen ampliada */
 .image-overlay {
@@ -284,9 +287,26 @@ h1, h2, h3, h4 {
     bottom: 0;
     top: auto;
     border-radius: 15px 15px 0 0;
+    position: fixed;
+    top: 0;
+    right: 0;
+    /* ya lo tienes */
+    z-index: 1200;
+
   }
 
   #cart-close {
     margin-top: 0;
   }
+
+  .cart-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0,0,0,0.3);
+  z-index: 1100;
+}
+
 }
