@@ -68,7 +68,7 @@ body {
   padding: 0 1rem;
 }
 
-/* Cada producto */
+/* Cada producto (ESTOS ESTILOS SE MANTIENEN COMO TE GUSTAN) */
 .product {
   background: #fff;
   border: 1px solid #ddd1a6;
@@ -87,11 +87,14 @@ body {
 
 .product img {
   max-width: 100%;
-  height: 200px; /* Mantener la altura fija para miniaturas */
-  object-fit: cover; /* Recortar si es necesario para rellenar la altura */
+  height: auto; /* Volvemos a auto, si te gustaba el recorte anterior, puedes poner 200px o 220px */
+  object-fit: contain; /* Cambiado a 'contain' para que no se recorte NADA en el listado */
+  /* Si prefieres que las imágenes del listado rellenen el espacio aunque se recorten,
+     vuelve a poner 'object-fit: cover;' y ajusta la 'height' si es necesario. */
   border-radius: 8px;
   margin-bottom: 0.8rem;
 }
+
 
 .product h3 {
   font-family: 'Playfair Display', serif;
@@ -260,7 +263,7 @@ body {
   outline: none;
 }
 
-/* Overlay de imagen - TAMAÑO ESTÁNDAR/NORMAL */
+/* Overlay de imagen - ENFOCADO EN ESTO */
 .image-overlay {
   position: fixed;
   top: 0;
@@ -276,18 +279,17 @@ body {
 
 .image-popup {
   position: relative;
-  /* Definimos un tamaño máximo fijo o más contenido */
-  max-width: 600px; /* Ancho máximo para la imagen (puedes ajustar este valor) */
-  max-height: 80vh;  /* Permite que la altura se ajuste al 80% de la pantalla si es necesario, */
-                     /* útil para imágenes verticales sin exceder la pantalla. */
+  /* Valores ajustados para un tamaño 'normal' grande sin recorte */
+  max-width: 800px; /* Aumentado a 800px para un tamaño grande pero que quepa */
+  max-height: 90vh; /* Permite que ocupe más altura si la imagen es vertical */
   display: flex;
   justify-content: center;
   align-items: center;
   background-color: #fffaf0;
   border-radius: 12px;
-  padding: 15px;
+  padding: 15px; /* Pequeño padding alrededor de la imagen */
   box-shadow: 0 0 30px rgba(0,0,0,0.5);
-  overflow: hidden;
+  overflow: hidden; /* Asegura que nada se salga del popup */
 }
 
 .image-popup img {
@@ -295,7 +297,7 @@ body {
   height: auto;
   max-width: 100%;    /* La imagen no excederá el 100% del contenedor popup */
   max-height: 100%;   /* La imagen no excederá el 100% del contenedor popup */
-  object-fit: contain; /* Crucial: la imagen se escala para caber completamente sin recortarse */
+  object-fit: contain; /* ¡CRUCIAL! La imagen se escala para caber COMPLETA sin recortarse */
   border-radius: 8px;
   display: block;
 }
@@ -349,10 +351,10 @@ body {
     width: 100%;
     max-width: 100vw;
   }
-  /* En móviles, el popup puede ser más grande para aprovechar la pantalla */
+  /* En móviles, el popup debe ser más grande para aprovechar la pantalla */
   .image-popup {
-    max-width: 90vw; /* Ajustado para móviles */
-    max-height: 90vh; /* Ajustado para móviles */
+    max-width: 95vw; /* Casi todo el ancho */
+    max-height: 95vh; /* Casi toda la altura */
     padding: 10px;
   }
   #image-close {
