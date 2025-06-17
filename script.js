@@ -17,7 +17,7 @@ const products = [
   { id: 15, name: "Anillo de perla sencillo enchapado en oro 14k, talla 6, 7 y 9", price: 15, image: "15.jpeg" },
   { id: 16, name: "Anillo con círculo moderno enchapado en oro 14k, talla 6, 7, 8 y 9", price: 15, image: "16.png" },
   { id: 17, name: "Juego de cadena y pulsera cubana con dije de sirena, oro 14k, unisex", price: 50, image: "17.jpeg" },
-  { id: 18, name: "Juego cadena y manilla enchapado en oro 14k con zirconias, 50cm y 20cm", price: 50, image: "18.jpeg" }
+  { id: 18, name: "Juego cadena y manilla enchapado en oro 14k con zirconias, 50cm y 20cm", price: 50, image: "18.jpeg" },
   { id: 19, name: "Anillo de diseño con piedra enchapado en oro 18k", price: 15, image: "19.jpg" },
   { id: 20, name: "Anillo de diseño blanco con enchape 14k, talla 7 y 8", price: 15, image: "20.jpg" },
   { id: 21, name: "Anillo enchapado en oro rosa con piedra, talla 8 y 12", price: 15, image: "21.jpg" },
