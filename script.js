@@ -51,7 +51,8 @@ const products = [
   { id: 49, name: "Pulsera enchapada en 14k para niña y mujer (18 cm)", price: 10, image: "49.jpg" },
   { id: 50, name: "Pulsera de perla y zirconia enchapada en 14k para niña y mujer (18 cm)", price: 10, image: "50.jpg" },
   { id: 51, name: "Anillo con piedra elegante y sencillo enchapado en oro 14k, talla 6, 9 y 10", price: 15, image: "51.jpg" },
-  { id: 52, name: "Cadena fina personalizada con iniciales y zirconias enchapada en oro 14k", price: 15, image: "52.jpg" }
+  { id: 52, name: "Cadena fina personalizada con iniciales y zirconias enchapada en oro 14k", price: 15, image: "52.jpg" },
+  { id: 53, name: "Cadena fina personalizada ajustable con dijes de iniciales con zirconias y separador enchapada en 14k", price: 20, image: "53.jpg" }
 ];
 
 // Carrito guardado o inicial vacío
