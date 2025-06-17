@@ -272,8 +272,9 @@ body {
 
 .image-popup {
   position: relative;
-  max-width: 90vw;
-  max-height: 90vh;
+  max-width: 80vw;   /* Reduce el ancho máximo */
+  max-height: 80vh;  /* Reduce la altura máxima */
+  margin: auto;      /* Centrar en pantalla */
 }
 
 .image-popup img {
@@ -281,7 +282,10 @@ body {
   max-height: 100%;
   border-radius: 12px;
   box-shadow: 0 0 20px rgba(191,165,106,0.9);
+  display: block;    /* Elimina espacios extra */
+  margin: auto;      /* Centrar la imagen */
 }
+
 
 /* Botón cerrar imagen */
 #image-close {
